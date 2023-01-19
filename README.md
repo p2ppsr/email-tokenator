@@ -1,7 +1,13 @@
 # email-tokenator
 
-## Overview
 A Tokenator for P2P Secure Email
+
+## Overview
+EmailTokenator is a specialized derived class of Tokenator that enables peer-to-peer secure email communication. With EmailTokenator, users can send and receive encrypted emails directly between each other over any PeerServ instance without the need for a central server or third-party intermediary. Mutual authentication is handled by Authrite, and monetization can be configured using PacketPay.
+
+In this example, the message data is encrypted with the recipient as the counterparty and stored on-chain, but it can easily be modified to only store the hash of the message on-chain if so desired.
+
+Developers can easily integrate this secure email functionality into their applications, providing users with a more private and secure way of communicating. EmailTokenator is a perfect example of how Tokenator's base-level class can be extended to build specialized tokens that solve real-world problems.
 
 ## Example Usage
 
