@@ -114,7 +114,8 @@ class EmailTokenator extends PushDropTokenator {
             // Finally, we include the email that we've just decrypted, for
             // showing in the email list
             subject: parsedEmail.subject,
-            body: parsedEmail.body
+            body: parsedEmail.body,
+            dateSent: parsedEmail.dateSent
           }
         } catch (e) {
         // In case there are any errors, we'll handle them gracefully.
