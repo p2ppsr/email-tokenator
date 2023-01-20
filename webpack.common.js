@@ -3,7 +3,7 @@ const path = require('path')
 
 module.exports = {
   entry: {
-    PaymentTokenator: './src/EmailTokenator.js'
+    EmailTokenator: './src/EmailTokenator.js'
   },
   output: {
     globalObject: 'this',
