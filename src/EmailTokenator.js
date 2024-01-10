@@ -36,7 +36,7 @@ class EmailTokenator extends PushDropTokenator {
    * Creates an email token to send in a message to PeerServ
    * @param {Object} message The email message to send
    * @param {String} message.recipient The recipient of this email
-   * @param {String} message.subject The subject of the email
+   * @param {String} message.subject The subject of the email given as a public identity key
    * @param {String} message.body The body of the email message
    */
   async sendEmail (message) {
