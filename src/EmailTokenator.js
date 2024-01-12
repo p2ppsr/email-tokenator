@@ -1,5 +1,5 @@
 const PushDropTokenator = require('pushdrop-tokenator')
-const BabbageSDK = require('@babbage/sdk')
+const BabbageSDK = require('@babbage/wrapped-sdk')
 const pushdrop = require('pushdrop')
 
 const STANDARD_EMAIL_MESSAGEBOX = 'email_inbox'
@@ -84,7 +84,8 @@ class EmailTokenator extends PushDropTokenator {
             ...email.envelope,
             lockingScript: email.outputScript,
             txid: email.txid,
-            outputIndex: email.vout
+            outputIndex: email.vout,
+            satoshis: email.amount
           }
           // Get custom instructions if provided
           let counterparty = 'self'
@@ -110,7 +111,6 @@ class EmailTokenator extends PushDropTokenator {
           console.log(decryptedEmail)
           return {
             token,
-            sats: email.amount,
             // Finally, we include the email that we've just decrypted, for
             // showing in the email list
             subject: parsedEmail.subject,
@@ -129,6 +129,26 @@ class EmailTokenator extends PushDropTokenator {
     // We reverse the list, so the newest emails show up at the top
     decryptedEmail.reverse()
     return decryptedEmail
+  }
+
+  /**
+   * Removes an email token from a user's private basket
+   * @param {Object} email the email object
+   * @param {Object} email.token the email token to delete
+   */
+  async deleteEmail (email) {
+    try {
+      // If the email token belongs to the current user, pushdrop.redeem will work to unbasket the output.
+      // If it is an email token you can read, but not spend, unbasketOutput would be the function to use.
+      await this.redeemPushDropToken(email.token)
+      // await BabbageSDK.unbasketOutput({
+      //   txid: email.token.txid,
+      //   basket: this.protocolBasketName,
+      //   vout: 0
+      // })
+    } catch (error) {
+      console.error('Error deleting email:', error)
+    }
   }
 }
 module.exports = EmailTokenator
