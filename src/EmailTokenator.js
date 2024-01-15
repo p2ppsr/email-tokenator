@@ -49,7 +49,7 @@ class EmailTokenator extends PushDropTokenator {
         dateSent: new Date()
       }
     }
-    return await this.sendPushDropToken(emailToken)
+    return await this.sendPushDropToken(emailToken, ['email_outgoing'])
   }
 
   /**
@@ -63,17 +63,21 @@ class EmailTokenator extends PushDropTokenator {
 
   /**
    * Reads email messages from a private basket according to the standard protocol
-   * @param {Object} obj An object containing the messageIds
-   * @param {Array}  obj.messageIds An array of Numbers indicating which email message(s) to read
+   * @param {Boolean} - If provided, lists only outgoing email
    * @returns {Array} An array of email messages
    */
-  async readEmail () {
+  async readEmail (outgoing) {
+    let tags
+    if (outgoing) {
+      tags = ['email_outgoing']
+    }
     const emailFromBasket = await BabbageSDK.getTransactionOutputs({
       // The name of the basket where the tokens are kept
       basket: this.protocolBasketName,
       // Only get tokens that are active on the list, not already spent
       spendable: true,
-      includeEnvelope: true
+      includeEnvelope: true,
+      tags
     })
 
     // Decrypt the user's email
@@ -87,12 +91,12 @@ class EmailTokenator extends PushDropTokenator {
             outputIndex: email.vout,
             satoshis: email.amount
           }
+
           // Get custom instructions if provided
           let counterparty = 'self'
           if (email.customInstructions) {
             token.customInstructions = JSON.parse(email.customInstructions)
-            counterparty = token.customInstructions.sender
-            console.log(token.customInstructions)
+            counterparty = token.customInstructions.recipient
           }
 
           const decodedEmail = pushdrop.decode({ script: email.outputScript })
