@@ -25,9 +25,9 @@
     "webpack-merge": "^5.8.0"
   },
   "dependencies": {
-    "@babbage/sdk-ts": "^0.2.8",
+    "@babbage/sdk-ts": "^0.2.9",
     "@babbage/wrapped-sdk": "^0.1.2",
-    "pushdrop": "^0.1.40",
+    "pushdrop": "^0.1.42",
     "pushdrop-tokenator": "^0.1.11"
   }
 }
