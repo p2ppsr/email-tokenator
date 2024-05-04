@@ -1,6 +1,6 @@
 {
   "name": "email-tokenator",
-  "version": "0.1.27",
+  "version": "0.1.28",
   "description": "Tokenator for sending P2P secure email",
   "main": "src/EmailTokenator.js",
   "scripts": {
