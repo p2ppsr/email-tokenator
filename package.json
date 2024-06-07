@@ -28,6 +28,6 @@
     "@babbage/sdk-ts": "^0.2.38",
     "@babbage/wrapped-sdk": "^0.1.3",
     "pushdrop": "^0.1.57",
-    "pushdrop-tokenator": "^0.1.18"
+    "pushdrop-tokenator": "^0.1.19"
   }
 }
